@@ -1,15 +1,34 @@
 import express from 'express';
+import path from 'path';
+import fs from 'fs';
 import cors from 'cors';
 import './loader';
 import { getAttributes } from './loader';
 
+const _path = '/home/adam/results/';
+
 const app = express();
 app.use(cors());
 app.use((req: express.Request, res: express.Response, next: Function) => {
-  if (!req.url.endsWith('.png')) {
+  if (!req.url.endsWith('.jpg')) {
     console.log('ACCESS LOG', req.url);
   }
   next();
+});
+
+app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
+  const { token } = req.params;
+  const tokenNumber = parseInt(token);
+  const filePath = path.join(_path, `colony${tokenNumber}.jpg`);
+  const s = fs.createReadStream(filePath);
+  s.on('open', () => {
+    res.set('Content-Type', 'image/jpeg');
+    s.pipe(res);
+  });
+  s.on('error', () => {
+    res.set('Content-Type', 'text/plain');
+    res.status(404).end('Not found');
+  });
 });
 
 // metadata
