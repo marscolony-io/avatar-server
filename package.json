@@ -1,0 +1,21 @@
+{
+  "name": "avatar-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:marscolony-io/avatar-server.git",
+  "author": "crystalbit <crystalbit@mail.ru>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/",
+    "build": "tsc src/index.ts --outDir build --resolveJsonModule --esModuleInterop"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "web3": "^1.7.1"
+  }
+}
