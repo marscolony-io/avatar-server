@@ -11,6 +11,8 @@ export type Rarity = 'Common' | 'Rare' | 'Legendary';
 
 export type WithRarity<T> = Record<string, [T, Rarity]>; // WithRarity<тип> это объект { ключ: [тип, Rarity] }
 
+export type WithoutRarity<T> = Record<string, T>; // костыль?
+
 export type Gender = 'Male' | 'Female';
 
 export type Profession = 'Programmer' | 'Cosmic bounty hunter' | 'Scientist' | 'Technician';
