@@ -37,8 +37,8 @@ app.get('/:token', (req: express.Request, res: express.Response) => {
   const tokenNumber = parseInt(token);
   if (
     Number.isNaN(tokenNumber)
-    || tokenNumber < 0
-    || tokenNumber >= 21000
+    || tokenNumber < 1
+    || tokenNumber > 21000
   ) {
     res.status(404).end();
     return;

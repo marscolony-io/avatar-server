@@ -41,14 +41,14 @@ for (const index of Object.keys(DataJson)) {
     spacesuit,
     visor
   }
-  attributes[parseInt(index)-1] = item;
+  attributes[parseInt(index)] = item;
 }
 
 export const getAttributes = (id: number): Record<string, unknown> => {
   const data = attributes[id];
   return {
-    name: `Martian Colonist ${id+1}`,
-    description: `Martian Colonist ${id+1}`,
+    name: `Martian Colonist ${id}`,
+    description: `These 21,000 avatar NFTs have landed on Mars, and are ready to build the colonies and perform missions. These are the very first generation of colonists, unlike any who will come after.`,
     image: 'https://' + process.env.TESTNET ? 'meta-avatar-test' : 'meta-avatar' + '.marscolony.io/' + id + 1 + '.jpg',
     attributes: [
       attribute('Profession', data.profession ?? 'Error'),
