@@ -1,7 +1,6 @@
 import { backgrounds, persons } from './attribute-adapter';
 import { attribute, Background, Gender, Person, Profession, Rarity } from './attribute-types';
 import DataJson from './attributes.json';
-import { avatarImage } from './helper';
 
 export const attributes: Attributes[] = [];
 
@@ -30,7 +29,7 @@ for (const index of Object.keys(DataJson)) {
     background,
     person,
   }
-  attributes[parseInt(index)] = item;
+  attributes[parseInt(index) - 1] = item;
 }
 
 export const getAttributes = (id: number): Record<string, unknown> => {
@@ -38,7 +37,7 @@ export const getAttributes = (id: number): Record<string, unknown> => {
   return {
     name: `Martian Colonist ${id}`,
     description: `Martian Colonist ${id}`,
-    image: avatarImage(id),
+    image: 'https://' + process.env.TESTNET ? 'meta-avatar-test' : 'meta-avatar' + '.marscolony.io/' + id + '.jpg',
     attributes: [
       attribute('Profession', data.profession ?? 'Error'),
       attribute('Background', data.background ? data.background[0] + ': ' + data.background[1] : 'Error'),
