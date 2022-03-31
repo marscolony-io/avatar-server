@@ -48,8 +48,8 @@ export const getAttributes = (id: number): Record<string, unknown> => {
   const data = attributes[id];
   return {
     name: `Martian Colonist ${id}`,
-    description: `These 21,000 avatar NFTs have landed on Mars, and are ready to build the colonies and perform missions. These are the very first generation of colonists, unlike any who will come after.`,
-    image: 'https://' + process.env.TESTNET ? 'meta-avatar-test' : 'meta-avatar' + '.marscolony.io/' + id + 1 + '.jpg',
+    description: `This is the Martian Colonist ${id} (${data.background[1] ? data.background[1] : "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you’re ready to build the colonies and perform missions on Mars.`,
+    image: 'https://' + process.env.TESTNET ? 'meta-avatar-test' : 'meta-avatar' + '.marscolony.io/' + id + '.jpg',
     attributes: [
       attribute('Profession', data.profession ?? 'Error'),
       attribute('Background', data.background ? data.background[0] + ': ' + data.background[1] : 'Error'),
