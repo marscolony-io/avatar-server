@@ -1,6 +1,10 @@
 import { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } from './attribute-adapter';
 import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headgear, Glasses, Microphone, Spacesuit, Visor } from './attribute-types';
-import DataJson from './attributes.json';
+import DataJsonMainnet from './attributes-mainnet.json';
+import DataJsonTestnet from './attributes-testnet.json';
+import { avatarImage } from './helper';
+
+const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
 
 export const attributes: Attributes[] = [];
 
@@ -48,8 +52,8 @@ export const getAttributes = (id: number): Record<string, unknown> => {
   const data = attributes[id];
   return {
     name: `Martian Colonist ${id}`,
-    description: `This is the Martian Colonist ${id} (${data.background[1] ? data.background[1] : "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you’re ready to build the colonies and perform missions on Mars.`,
-    image: 'https://' + process.env.TESTNET ? 'meta-avatar-test' : 'meta-avatar' + '.marscolony.io/' + id + '.jpg',
+    description: `This is the Martian Colonist ${id} (${data.background[1] ? data.background[1] : "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you're ready to build the colonies and perform missions on Mars.`,
+    image: avatarImage(id),
     attributes: [
       attribute('Profession', data.profession ?? 'Error'),
       attribute('Background', data.background ? data.background[0] + ': ' + data.background[1] : 'Error'),

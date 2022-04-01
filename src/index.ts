@@ -4,8 +4,10 @@ import fs from 'fs';
 import cors from 'cors';
 import './loader';
 import { getAttributes } from './loader';
+import './name-service';
+import { idAllowed } from './last-id-service';
 
-const _path = '/home/adam/results/';
+const _path = process.env.TESTNET ? '/home/adam/results/' : '';
 
 const app = express();
 app.use(cors());
@@ -16,9 +18,19 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
   next();
 });
 
+app.get('/minted/:token', (req: express.Request, res: express.Response) => {
+  const { token } = req.params;
+  const tokenNumber = parseInt(token);
+  res.json({ minted: idAllowed(tokenNumber) });
+});
+
 app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
+  if (!idAllowed(tokenNumber)) {
+    res.status(404).end();
+    return;
+  }
   const filePath = path.join(_path, `colony${tokenNumber}.jpg`);
   const s = fs.createReadStream(filePath);
   s.on('open', () => {
@@ -35,6 +47,10 @@ app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
 app.get('/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
+  if (!idAllowed(tokenNumber)) {
+    res.status(404).end();
+    return;
+  }
   if (
     Number.isNaN(tokenNumber)
     || tokenNumber < 1
