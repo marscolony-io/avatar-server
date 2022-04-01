@@ -4,7 +4,6 @@ import { AbiItem } from 'web3-utils';
 import { Contract } from 'web3-eth-contract';
 import ABI from './avatars.abi.json';
 import nftABI from './collection.abi.json';
-import { names } from "./name-service";
 
 export const lastId = {
   data: 0,
