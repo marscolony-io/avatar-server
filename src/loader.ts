@@ -1,10 +1,13 @@
-import { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } from './attribute-adapter';
+import * as adapterMainnet from './attribute-adapter';
+import * as adapterTestnet from './attribute-adapter-testnet';
 import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headgear, Glasses, Microphone, Spacesuit, Visor } from './attribute-types';
 import DataJsonMainnet from './attributes-mainnet.json';
 import DataJsonTestnet from './attributes-testnet.json';
 import { avatarImage } from './helper';
+import { names } from './name-service';
 
 const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
+const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = process.env.TESTNET ? adapterTestnet : adapterMainnet;
 
 export const attributes: Attributes[] = [];
 
@@ -52,17 +55,18 @@ export const getAttributes = (id: number): Record<string, unknown> => {
   const data = attributes[id];
   return {
     name: `Martian Colonist ${id}`,
-    description: `This is the Martian Colonist ${id} (${data.background[1] ? data.background[1] : "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you're ready to build the colonies and perform missions on Mars.`,
+    description: `This is the Martian Colonist ${id} (${data.background[1] ?? "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you're ready to build the colonies and perform missions on Mars.`,
     image: avatarImage(id),
     attributes: [
+      attribute('Name', names[id] ?? `No Name #${id}`),
       attribute('Profession', data.profession ?? 'Error'),
-      attribute('Background', data.background ? data.background[0] + ': ' + data.background[1] : 'Error'),
-      attribute('Human', data.person ? data.person[0] + ': ' + data.person[1] : 'Error'),
-      attribute('Headgear', data.headgear ? data.headgear[0] + ': ' + data.headgear[1] : 'Error'),
-      attribute('Mask', data.mask ? data.mask[0] + ': ' + data.mask[1] : ( data.mask == undefined ? 'None' : 'Error')),
-      attribute('Shades', data.glasses ? data.glasses[0] + ': ' + data.glasses[1] : ( data.glasses == undefined ? 'None' : 'Error')),
-      attribute('Microphone', data.microphone ? data.microphone[0] + ': ' + data.microphone[1] : 'Error'),
-      attribute('Spacesuit', data.spacesuit ? data.spacesuit[0] + ': ' + data.spacesuit[1] : 'Error'),
+      attribute('Background', data.background ? (data.background[0] + ': ' + data.background[1]) : 'Error'),
+      attribute('Human', data.person ? (data.person[0] + ': ' + data.person[1]) : 'Error'),
+      attribute('Headgear', data.headgear ? (data.headgear[0] + ': ' + data.headgear[1]) : 'Error'),
+      attribute('Mask', data.mask ? (data.mask[0] + ': ' + data.mask[1]) : ( data.mask == undefined ? 'None' : 'Error')),
+      attribute('Shades', data.glasses ? (data.glasses[0] + ': ' + data.glasses[1]) : ( data.glasses == undefined ? 'None' : 'Error')),
+      attribute('Microphone', data.microphone ? (data.microphone[0] + ': ' + data.microphone[1]) : 'Error'),
+      attribute('Spacesuit', data.spacesuit ? (data.spacesuit[0] + ': ' + data.spacesuit[1]) : 'Error'),
       attribute('Visor', data.visor ?? 'Error'),
     ],
   };

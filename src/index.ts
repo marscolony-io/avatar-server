@@ -7,7 +7,7 @@ import { getAttributes } from './loader';
 import './name-service';
 import { idAllowed } from './last-id-service';
 
-const _path = process.env.TESTNET ? '/home/adam/results/' : '';
+const _path = process.env.TESTNET ? '/home/avatars/testnet/' : '/home/avatars/mainnet/';
 
 const app = express();
 app.use(cors());
