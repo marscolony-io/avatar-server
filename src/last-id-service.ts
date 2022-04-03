@@ -10,6 +10,7 @@ export const lastId = {
 };
 
 export const idAllowed = (id: number): boolean => {
+  return true;
   return id > 0 && id <= lastId.data;
 };
 
