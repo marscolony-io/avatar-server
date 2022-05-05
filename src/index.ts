@@ -4,7 +4,7 @@ import fs from 'fs';
 import cors from 'cors';
 import './loader';
 import { getAttributes } from './loader';
-import './name-service';
+import './name-xp-service';
 import { idAllowed } from './last-id-service';
 
 const _path = process.env.TESTNET ? '/home/avatars/testnet/' : '/home/avatars/mainnet/';

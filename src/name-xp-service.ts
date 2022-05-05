@@ -6,6 +6,7 @@ import ABI from './avatars.abi.json';
 import { lastId } from "./last-id-service";
 
 export const names: string[] = [];
+export const xps: number[] = [];
 
 const web3instances: Array<[Web3, Contract]> = rpcs.map((node: string) => {
   const web3 = new Web3(node);
@@ -14,7 +15,7 @@ const web3instances: Array<[Web3, Contract]> = rpcs.map((node: string) => {
 });
 
 (async () => {
-  const BATCH_SIZE = 10;
+  const BATCH_SIZE = 100;
   while (true) {
     const [, contract] = web3instances[Math.floor(web3instances.length * Math.random())];
     try {
@@ -26,15 +27,17 @@ const web3instances: Array<[Web3, Contract]> = rpcs.map((node: string) => {
           }
         }
         const _names = await contract.methods.getNames(ids).call();
+        const _xps = await contract.methods.getXP(ids).call();
         for (let j = 0; j < ids.length; j++) {
           names[ids[j]] = _names[j];
+          xps[ids[j]] = _xps[j];
         }
         await new Promise(rs => setTimeout(rs, 2000));
 
       }
       await new Promise(rs => setTimeout(rs, 2000));
     } catch (error) {
-      console.log('name-service 1', error.message);
+      console.log('name-xp-service 1', error.message);
       await new Promise(rs => setTimeout(rs, 1000));
     }
   }

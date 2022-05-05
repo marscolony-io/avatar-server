@@ -4,7 +4,8 @@ import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headge
 import DataJsonMainnet from './attributes-mainnet.json';
 import DataJsonTestnet from './attributes-testnet.json';
 import { avatarImage } from './helper';
-import { names } from './name-service';
+import { names, xps } from './name-xp-service';
+import { xpToLevel } from './xpToLevel';
 
 const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
 const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = process.env.TESTNET ? adapterTestnet : adapterMainnet;
@@ -59,6 +60,8 @@ export const getAttributes = (id: number): Record<string, unknown> => {
     image: avatarImage(id),
     attributes: [
       attribute('Name', names[id] ?? `No Name #${id}`),
+      xps[id] ? attribute('XP', xps[id].toString()) : null,
+      xps[id] ? attribute('Level', xpToLevel(xps[id]).toString()) : null,
       attribute('Profession', data.profession ?? 'Error'),
       attribute('Background', data.background ? (data.background[0] + ': ' + data.background[1]) : 'Error'),
       attribute('Human', data.person ? (data.person[0] + ': ' + data.person[1]) : 'Error'),
@@ -68,6 +71,6 @@ export const getAttributes = (id: number): Record<string, unknown> => {
       attribute('Microphone', data.microphone ? (data.microphone[0] + ': ' + data.microphone[1]) : 'Error'),
       attribute('Spacesuit', data.spacesuit ? (data.spacesuit[0] + ': ' + data.spacesuit[1]) : 'Error'),
       attribute('Visor', data.visor ?? 'Error'),
-    ],
+    ].filter((item) => item !== null),
   };
 };

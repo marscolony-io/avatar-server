@@ -36,7 +36,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -49,7 +50,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -62,7 +64,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -75,7 +78,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -88,7 +92,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -137,12 +142,37 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_collection",
-        "type": "address"
+        "internalType": "uint256[]",
+        "name": "avatarIds",
+        "type": "uint256[]"
       }
     ],
-    "name": "setMartianColonists",
+    "name": "getXP",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "avatarId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "increment",
+        "type": "uint256"
+      }
+    ],
+    "name": "addXP",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -158,7 +188,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -184,7 +215,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -248,6 +280,30 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_whereTo",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
