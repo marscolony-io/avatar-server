@@ -27,6 +27,8 @@ app.get('/minted/:token', (req: express.Request, res: express.Response) => {
 app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
+  console.log(process.env.TESTNET, !process.env.TESTNET);
+  
   if (!process.env.TESTNET && !idAllowed(tokenNumber)) {
     res.status(404).end();
     return;
