@@ -21,13 +21,13 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
 app.get('/minted/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  res.json({ minted: idAllowed(tokenNumber) });
+  res.json({ minted: Boolean(process.env.TESTNET) || idAllowed(tokenNumber) });
 });
 
 app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  if (!idAllowed(tokenNumber)) {
+  if (!process.env.TESTNET && !idAllowed(tokenNumber)) {
     res.status(404).end();
     return;
   }
@@ -47,7 +47,7 @@ app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
 app.get('/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  if (!idAllowed(tokenNumber)) {
+  if (!process.env.TESTNET && !idAllowed(tokenNumber)) {
     res.status(404).end();
     return;
   }
