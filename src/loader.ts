@@ -4,7 +4,7 @@ import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headge
 import DataJsonMainnet from './attributes-mainnet.json';
 import DataJsonTestnet from './attributes-testnet.json';
 import { avatarImage } from './helper';
-import { names, xps } from './name-xp-service';
+import { names, stakeLeft, xps } from './name-xp-service';
 import { xpToLevel } from './xpToLevel';
 
 const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
@@ -60,6 +60,8 @@ export const getAttributes = (id: number): Record<string, unknown> => {
     image: avatarImage(id),
     attributes: [
       attribute('Name', names[id] ?? `No Name #${id}`),
+      attribute('In chamber', Boolean(stakeLeft[id]) ? 'true' : 'false'),
+      Boolean(stakeLeft[id]) ? attribute('Days left in chamber', Math.ceil(stakeLeft[id] / 60 / 60 / 24).toString()) : null,
       xps[id] ? attribute('XP', xps[id].toString()) : null,
       xps[id] ? attribute('Level', xpToLevel(xps[id]).toString()) : null,
       attribute('Profession', data.profession ?? 'Error'),
