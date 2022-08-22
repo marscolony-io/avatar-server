@@ -106,3 +106,5 @@ dist
 build/
 
 .DS_Store
+
+src/attributes-polygon.json

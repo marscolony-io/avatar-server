@@ -6,8 +6,17 @@ import './loader';
 import { getAttributes } from './loader';
 import './name-xp-service';
 import { idAllowed } from './last-id-service';
+import { network, Network } from './env';
 
-const _path = process.env.TESTNET ? '/home/avatars/testnet/' : '/home/avatars/mainnet/';
+const paths: Record<Network, string> = {
+  harmony: '/home/avatars/mainnet/',
+  fuji: '/home/avatars/testnet/',
+  polygon: '/home/avatars/polygon/'
+}
+
+const _path = paths[network];
+
+const isTestNetwork = network === 'fuji';
 
 const app = express();
 app.use(cors());
@@ -21,13 +30,13 @@ app.use((req: express.Request, res: express.Response, next: Function) => {
 app.get('/minted/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  res.json({ minted: Boolean(process.env.TESTNET) || idAllowed(tokenNumber) });
+  res.json({ minted: isTestNetwork || idAllowed(tokenNumber) });
 });
 
 app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  if (!process.env.TESTNET && !idAllowed(tokenNumber)) {
+  if (!isTestNetwork && !idAllowed(tokenNumber)) {
     res.status(404).end();
     return;
   }
@@ -47,7 +56,7 @@ app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
 app.get('/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
   const tokenNumber = parseInt(token);
-  if (!process.env.TESTNET && !idAllowed(tokenNumber)) {
+  if (!isTestNetwork && !idAllowed(tokenNumber)) {
     res.status(404).end();
     return;
   }

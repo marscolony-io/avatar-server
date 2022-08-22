@@ -1,14 +1,28 @@
 import * as adapterMainnet from './attribute-adapter';
 import * as adapterTestnet from './attribute-adapter-testnet';
 import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headgear, Glasses, Microphone, Spacesuit, Visor } from './attribute-types';
-import DataJsonMainnet from './attributes-mainnet.json';
-import DataJsonTestnet from './attributes-testnet.json';
+import DataJsonHarmony from './attributes-mainnet.json';
+import DataJsonFuji from './attributes-testnet.json';
+import DataJsonPolygon from './attributes-testnet.json';
+import { network, Network } from './env';
 import { avatarImage } from './helper';
 import { names, stakeLeft, xps } from './name-xp-service';
 import { xpToLevel } from './xpToLevel';
 
-const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
-const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = process.env.TESTNET ? adapterTestnet : adapterMainnet;
+const dataJsons: Record<Network, any> = {
+  fuji: DataJsonFuji,
+  harmony: DataJsonHarmony,
+  polygon: DataJsonPolygon,
+};
+
+const adapters: Record<Network, any> = {
+  fuji: adapterTestnet,
+  harmony: adapterMainnet,
+  polygon: adapterMainnet,
+};
+
+const DataJson = dataJsons[network];
+const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = adapters[network];
 
 export const attributes: Attributes[] = [];
 
