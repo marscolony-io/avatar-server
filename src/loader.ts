@@ -3,7 +3,7 @@ import * as adapterTestnet from './attribute-adapter-testnet';
 import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headgear, Glasses, Microphone, Spacesuit, Visor } from './attribute-types';
 import DataJsonHarmony from './attributes-mainnet.json';
 import DataJsonFuji from './attributes-testnet.json';
-import DataJsonPolygon from './attributes-testnet.json';
+import DataJsonPolygon from './attributes-polygon.json';
 import { network, Network } from './env';
 import { avatarImage } from './helper';
 import { names, stakeLeft, xps } from './name-xp-service';
@@ -67,7 +67,7 @@ for (const index of Object.keys(DataJson)) {
 }
 
 export const getAttributes = (id: number): Record<string, unknown> => {
-  const data = attributes[id];
+  const data = attributes[id]; 
   return {
     name: `Martian Colonist ${id}`,
     description: `This is the Martian Colonist ${id} (${data.background[1] ?? "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you're ready to build the colonies and perform missions on Mars.`,
