@@ -17,7 +17,7 @@ const avatarContracts: Record<Network, string> = {
 const cryochamberContracts: Record<Network, string> = {
   harmony: '0x2D2f5349896BF4012EA27Db345fbF8a71775d16f',
   fuji: '0x9166461379cF2fd6633e13A115B367DE46c29101', // TODO fix
-  polygon: '0x0000000000000000000000000000000000000000', // TODO add
+  polygon: '0x4B895e733B8F1D50ec7f92BccCF763f85b5f963b',
 };
 
 const collectionContracts: Record<Network, string> = {
