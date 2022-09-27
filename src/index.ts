@@ -52,6 +52,27 @@ app.get('/:token.jpg', (req: express.Request, res: express.Response) => {
   });
 });
 
+app.get('/tokens', (req: express.Request, res: express.Response) => {
+  const { id } = req.query;
+  const ids = String(id).split(',');
+  res.send(
+    ids.map((id) => {
+      if (
+        Number.isNaN(parseInt(id))
+        || parseInt(id) < 1
+        || parseInt(id) > 21000
+      ) {
+        return undefined;
+      } else {
+        return {
+          id,
+          data: getAttributes(parseInt(id))
+        }
+      }
+    }).filter(val => val) // rm undefineds
+  );
+});
+
 // metadata
 app.get('/:token', (req: express.Request, res: express.Response) => {
   const { token } = req.params;
