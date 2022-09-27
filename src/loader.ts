@@ -1,14 +1,28 @@
 import * as adapterMainnet from './attribute-adapter';
 import * as adapterTestnet from './attribute-adapter-testnet';
 import { attribute, Background, Gender, Person, Profession, Rarity, Mask, Headgear, Glasses, Microphone, Spacesuit, Visor } from './attribute-types';
-import DataJsonMainnet from './attributes-mainnet.json';
-import DataJsonTestnet from './attributes-testnet.json';
+import DataJsonHarmony from './attributes-mainnet.json';
+import DataJsonFuji from './attributes-testnet.json';
+import DataJsonPolygon from './attributes-polygon.json';
+import { network, Network } from './env';
 import { avatarImage } from './helper';
 import { names, stakeLeft, xps } from './name-xp-service';
 import { xpToLevel } from './xpToLevel';
 
-const DataJson = process.env.TESTNET ? DataJsonTestnet : DataJsonMainnet;
-const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = process.env.TESTNET ? adapterTestnet : adapterMainnet;
+const dataJsons: Record<Network, any> = {
+  fuji: DataJsonFuji,
+  harmony: DataJsonHarmony,
+  polygon: DataJsonPolygon,
+};
+
+const adapters: Record<Network, any> = {
+  fuji: adapterTestnet,
+  harmony: adapterMainnet,
+  polygon: adapterMainnet,
+};
+
+const DataJson = dataJsons[network];
+const { backgrounds, persons, masks, headgears, spacesuits, visors, microphones, glasses } = adapters[network];
 
 export const attributes: Attributes[] = [];
 
@@ -53,7 +67,7 @@ for (const index of Object.keys(DataJson)) {
 }
 
 export const getAttributes = (id: number): Record<string, unknown> => {
-  const data = attributes[id];
+  const data = attributes[id]; 
   return {
     name: `Martian Colonist ${id}`,
     description: `This is the Martian Colonist ${id} (${data.background[1] ?? "Error"}) made by marscolony.io. This one is the part of the 21000 avatar NFTs who became the first generation to land on Mars. With it, you're ready to build the colonies and perform missions on Mars.`,
