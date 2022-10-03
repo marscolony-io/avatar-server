@@ -84,7 +84,7 @@ export const getAttributes = (id: number): Record<string, unknown> => {
       attribute('Headgear', data.headgear ? (data.headgear[0] + ': ' + data.headgear[1]) : 'Error'),
       attribute('Mask', data.mask ? (data.mask[0] + ': ' + data.mask[1]) : ( data.mask == undefined ? 'None' : 'Error')),
       attribute('Shades', data.glasses ? (data.glasses[0] + ': ' + data.glasses[1]) : ( data.glasses == undefined ? 'None' : 'Error')),
-      attribute('Microphone', data.microphone ? (data.microphone[0] + ': ' + data.microphone[1]) : 'Error'),
+      attribute('Microphone', data.microphone ? (data.microphone[0] + ': ' + data.microphone[1]) : (data.microphone == undefined ? 'None' : 'Error')),
       attribute('Spacesuit', data.spacesuit ? (data.spacesuit[0] + ': ' + data.spacesuit[1]) : 'Error'),
       attribute('Visor', data.visor ?? 'Error'),
     ].filter((item) => item !== null),
