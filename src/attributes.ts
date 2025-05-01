@@ -42,7 +42,7 @@ export const rewriteAttributes = () => {
   });
 
   // Write the transformed attributes to a new file
-  const outputPath = path.join(__dirname, "colonists-attributes.json");
+  const outputPath = path.join(__dirname, "colonists-attributes-mainnet.json");
   fs.writeFileSync(outputPath, JSON.stringify(transformedAttributes, null, 2));
 
   // Count rarity distribution
