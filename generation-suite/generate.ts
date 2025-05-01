@@ -42,7 +42,7 @@ async function loadGenerationData(): Promise<any> {
   const dataPath = path.join(
     process.cwd(),
     "generation-suite",
-    "generation-data.json"
+    "generation-data-mainnet.json"
   );
   const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
   return data;
